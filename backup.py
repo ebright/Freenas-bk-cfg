@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 #
-#FreeNAS Configuration Backup Script
+#FreeNAS Configuration Backup Script (version 1.0_15)
 #Created By: Eric Bright Copyright (C) 2013
 #
 #This program is free software: you can redistribute it and/or modify
@@ -42,7 +42,7 @@ logging.getLogger('').addHandler(console)
 logging.info(latest_len)
 
 if  os.stat(log_file)[6]==0:
-        logging.debug('Version 1.0 build 14')
+        logging.debug('Version 1.0 build 15')
         logging.debug('Automatic Backup Script for FreeNAS Configuration File')
         logging.debug('Script Created By: Eric Bright Copyright (C) 2013')
         logging.debug('https://github.com/ebright/FreeNas_Config/')
