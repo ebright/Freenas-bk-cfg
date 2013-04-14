@@ -26,7 +26,6 @@ latest_name = "current"
 ext = ".db"
 
 matched = None
-
 fname = None
 latest_len = len(latest_name)
 
