@@ -22,7 +22,7 @@ log_file = "/tmp/backup.log"
 db_file = "/data/freenas-v1.db"
 bk_path = "/tmp/"
 backup_name = "backup"
-archive_name = "current"
+archive_name = "archive"
 ext = ".db"
 
 matched = None
