@@ -22,12 +22,12 @@ log_file = "/tmp/backup.log"
 db_file = "/data/freenas-v1.db"
 bk_path = "/tmp/"
 backup_name = "backup"
-latest_name = "current"
+archive_name = "current"
 ext = ".db"
 
 matched = None
 fname = None
-latest_len = len(latest_name)
+backup_len = len(backup_name)
 
 console = logging.StreamHandler()
 console.setLevel(logging.INFO)
@@ -39,10 +39,8 @@ logging.basicConfig(filename=log_file,
         datefmt='%m/%d/%Y %H:%M:%S')
 logging.getLogger('').addHandler(console)
 
-logging.info(latest_len)
-
 if  os.stat(log_file)[6]==0:
-        logging.debug('Version 1.0 build 15')
+        logging.debug('Version 1.0 build 16')
         logging.debug('Automatic Backup Script for FreeNAS Configuration File')
         logging.debug('Script Created By: Eric Bright Copyright (C) 2013')
         logging.debug('https://github.com/ebright/FreeNas_Config/')
@@ -51,7 +49,7 @@ if  os.stat(log_file)[6]==0:
 os.chdir(bk_path)
 logging.debug('Searching for previous backup in ' + bk_path )
 for files in os.listdir("."):
-        if files.startswith(latest_name):
+        if files.startswith(backup_name):
                 fname = files
                 bk_file = bk_path + files
                 matched = True
@@ -64,14 +62,14 @@ if matched is True:
                 logging.info('Configuration has not changed. Aborting backup')
                 sys.exit()
         else:
-                logging.debug('Configuration changed. renaming previous backup')
-                logging.debug(bk_file + ' >> ' + bk_path + backup_name + fname[latest_len:])
-                shutil.move(bk_file,  bk_path + backup_name + fname[latest_len:])
-                logging.info('Creating backup ' + bk_path + latest_name + '_' + d.strftime(date_format) + ext)
-                shutil.copy2(db_file, bk_path + latest_name + '_' + d.strftime(date_format) + ext)
+                logging.debug('Configuration changed. Archiving previous backup')
+                logging.debug(bk_file + ' >> ' + bk_path + archive_name + fname[backup_len:])
+                shutil.move(bk_file,  bk_path + archive_name + fname[backup_len:])
+                logging.info('Creating backup ' + bk_path + backup_name + '_' + d.strftime(date_format) + ext)
+                shutil.copy2(db_file, bk_path + backup_name + '_' + d.strftime(date_format) + ext)
 
 else:
-        bk_file = bk_path + latest_name + '_' + d.strftime(date_format) + ext
+        bk_file = bk_path + backup_name + '_' + d.strftime(date_format) + ext
         logging.info('No previous backup found. Create new backup: ' + bk_file)
         shutil.copy2(db_file, bk_file)
 sys.exit()
