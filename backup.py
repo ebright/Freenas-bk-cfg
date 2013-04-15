@@ -18,7 +18,7 @@ import logging
 
 d = datetime.datetime.now()
 date_format = "%Y_%m_%d_%H_%M"
-log_file = "/tmp/backup.log"
+log_file = "/tmp/freenas-backup.log"
 db_file = "/data/freenas-v1.db"
 bk_path = "/tmp/"
 backup_name = "backup"
