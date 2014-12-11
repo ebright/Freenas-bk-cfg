@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 #
-#NaStar Configuration Backup Script (version 1.0_15)
+#FreeNAS Configuration Backup Script (version 1.0_15)
 #Original script Created By: Eric Bright Copyright (C) 2013
 #Added mail feature by: Dennis Juhler Aagaard
 #
