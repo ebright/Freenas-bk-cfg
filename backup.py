@@ -36,7 +36,7 @@ parser = optparse.OptionParser()
 parser.add_option('-n', '--name', help="Name of the system", action="store")
 parser.add_option('-m', '--mailserver', help="Hostname of mailserver with port; hostname.org:25", action="store")
 parser.add_option('-u', '--user', help="Username for the mail account", action="store")
-parser.add_option('-p', '--passwd', help="Password for your mail account. Beaware that this is in cleartext", action="store")
+parser.add_option('-p', '--passwd', help="Password for your mail account. Beaware that this is in cleartext. This password will also be used for encryption.", action="store")
 parser.add_option('-t', '--emailto', help="Mail you want to send the file to", action="store")
 parser.add_option('-f', '--emailfrom', help="Naming of the email adress sent from. Mostly the same as your mailaccount", action="store")
 
@@ -138,6 +138,8 @@ if matched is True:
 		msg.attach(content2)
 		msg.attach(attachment)
 		s.sendmail(fromEmail, toEmail, msg.as_string())
+		#remove the encrypted file after sending it. 
+		subprocess(['rm', '-R', bk_path + backup_name + '_' + d.strftime(date_format) + ext + enc]) 
 					
 else:
 	bk_file = bk_path + backup_name + '_' + d.strftime(date_format) + ext
