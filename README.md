@@ -67,4 +67,4 @@ Copy the decrypt.py to your prefered location.
 password can also be typed in in a non-cleartext form if not provided in the script argument.
 
 <code>./decrypt.py -f 'filepath'
-enter aes-256-cbc decryption password:</code>
+<br>enter aes-256-cbc decryption password:</code>
