@@ -22,7 +22,7 @@ Arguments to the script has been made to make it flexible to which mail server s
 
 <code>-p PASSWD, --passwd=PASSWD</code>
                         <code>Password for your mail account. Beaware that this is
-                        in cleartext</code>
+                        in cleartext. This password will also be used for encryption.</code>
 
 <code>-t EMAILTO, --emailto=EMAILTO
                         Mail you want to send the file to</code>
