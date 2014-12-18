@@ -4,11 +4,7 @@
 #Needs to be run with the password to your mailaccount.
 
 import os
-import shutil
-import datetime
 import sys
-import logging
-import socket
 import getopt
 import optparse
 import subprocess
