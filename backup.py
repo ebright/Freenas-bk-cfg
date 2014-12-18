@@ -105,6 +105,7 @@ if matched is True:
 		shutil.move(bk_file, bk_path + archive_name + fname[backup_len:])
 		logging.info('Creating backup ' + bk_path + backup_name + '_' + d.strftime(date_format) + ext)
 		shutil.copy2(db_file, bk_path + backup_name + '_' + d.strftime(date_format) + ext)
+		
 		#Add function to encrypt the log file to secure the mail transmit using openssl enc -e
 		#need to make a script to ease the deencryption on client side.
 		
@@ -138,6 +139,7 @@ if matched is True:
 		msg.attach(content2)
 		msg.attach(attachment)
 		s.sendmail(fromEmail, toEmail, msg.as_string())
+		
 		#remove the encrypted file after sending it. 
 		subprocess(['rm', '-R', bk_path + backup_name + '_' + d.strftime(date_format) + ext + enc]) 
 					
