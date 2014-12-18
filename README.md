@@ -3,7 +3,7 @@
 Python script to backup FreeNAS configuration file Created by Eric Bright Copyright (C) 2013
 Expanded by adding mail, and the use of zpool location of the backup, by Dennis Juhler Aagaard (C) 2014
 
-This script will copy the FreeNAS configuration file (/data/freenas-v1.db) to the location /mnt/zpool/.system/cores. The script copies the configuration only when a change has been made to the FreeNAS Configuration file and mail it to a email account of your choosing. Previous backups will be archived when a new backup is created.
+This script will copy the FreeNAS configuration file (/data/freenas-v1.db) to the location /mnt/zpool/.system/cores. The script copies the configuration only when a change has been made to the FreeNAS Configuration file. The scripts makes an encrypted version of the .db file with the provided password in the mailaccount and mail it to a email account of your choosing. Previous backups will be archived when a new backup is created.
 
 Arguments to the script has been made to make it flexible to which mail server should be used and also introduced a System name independent of hostname og the system in case you have multiple FreeNAS systems you need to have backups from.
 
@@ -31,6 +31,7 @@ Arguments to the script has been made to make it flexible to which mail server s
                         Naming of the email adress sent from. Mostly the same
                         as your mailaccount</code>
 
+
 <h2>Install Instructions</h2>
 
 Copy BackupConf.py to /usr/local/sbin/ by first mounting the system as writeable with mount -uw /
@@ -56,3 +57,14 @@ Uncheck Redirect Stderr to receive email* updates for errors processing the scri
 
 Check Enabled to enable this job
 <br>*emails sent to root account's email address
+
+<h2>Clientside decryption script</h2>
+
+Copy the decrypt.py to your prefered location.
+<br>Execute by running in terminal
+<code>./decrypt.py -p 'password' -f 'filepath'</code>
+
+password can also be typed in in a non-cleartext form if not provided in the script argument.
+
+<code>./decrypt.py -f 'filepath'
+enter aes-256-cbc decryption password:</code>
