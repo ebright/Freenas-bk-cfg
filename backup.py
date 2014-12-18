@@ -59,6 +59,7 @@ bk_path = os.path.join(subprocess.check_output("zfs list | grep cores | awk -vOR
 backup_name = "backup"
 archive_name = "archive"
 ext = ".db"
+enc = ".enc"
 localhost = socket.gethostname()
 systemname = options.name
 
@@ -104,12 +105,17 @@ if matched is True:
 		shutil.move(bk_file, bk_path + archive_name + fname[backup_len:])
 		logging.info('Creating backup ' + bk_path + backup_name + '_' + d.strftime(date_format) + ext)
 		shutil.copy2(db_file, bk_path + backup_name + '_' + d.strftime(date_format) + ext)
+		#Add function to encrypt the log file to secure the mail transmit using openssl enc -e
+		#need to make a script to ease the deencryption on client side.
+		
+		subprocess.call(['openssl', 'aes-256-cbc', '-a', '-salt', '-in', bk_path + backup_name + '_' + d.strftime(date_format) + ext, '-out', bk_path + backup_name + '_' + d.strftime(date_format) + ext + enc, '-k', passwd])
+		
 		
 		#Gather all the Mailserver details + building up the mail containing text and the db file for offsite backup
 		import smtplib
 		from email.mime.multipart import MIMEMultipart
 		from email.mime.text import MIMEText
-		attachment = MIMEText(file(bk_path + backup_name + '_' + d.strftime(date_format) + ext).read())
+		attachment = MIMEText(file(bk_path + backup_name + '_' + d.strftime(date_format) + ext + enc).read())
 		filename = file(backup_name + '_' + d.strftime(date_format) + ext)
 		date = d.strftime(date_format)
 		filename2 = 'FreeNAS_Conf_%s_%s%s' % (backup_name, date, ext)
