@@ -5,7 +5,7 @@ Expanded by adding mail, and the use of zpool location of the backup, by Dennis 
 
 <b>Tested only on 9.2.1.7</b>
 
-This script will copy the FreeNAS configuration file (/data/freenas-v1.db) to the location /mnt/zpool/.system/cores. The script copies the configuration only when a change has been made to the FreeNAS Configuration file. The scripts makes an encrypted version of the .db file with the provided password in the mailaccount and mail it to a email account of your choosing. Previous backups will be archived when a new backup is created.
+This script will copy the FreeNAS configuration file (/data/freenas-v1.db) to the location /mnt/zpool/.system/cores. The script copies the configuration only when a change has been made to the FreeNAS Configuration file. The scripts makes an encrypted version of the .db file with the provided password in the mailaccount and mail it to a email account of your choosing. Previous backups will be archived when a new backup is created, but encrypted files on FreeNAS will be cleaned after mail action.
 
 Arguments to the script has been made to make it flexible to which mail server should be used and also introduced a System name independent of hostname og the system in case you have multiple FreeNAS systems you need to have backups from.
 
