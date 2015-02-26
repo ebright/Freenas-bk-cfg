@@ -119,7 +119,7 @@ if matched is True:
 		attachment = MIMEText(file(bk_path + backup_name + '_' + d.strftime(date_format) + ext + enc).read())
 		filename = file(backup_name + '_' + d.strftime(date_format) + ext)
 		date = d.strftime(date_format)
-		filename2 = 'FreeNAS_Conf_%s_%s%s' % (backup_name, date, ext)
+		filename2 = 'FreeNAS_Conf_%s_%s%s%s' % (backup_name, date, ext, enc)
 		msg = MIMEMultipart()
 		s = smtplib.SMTP('%s' % mailserver)
 		s.starttls()
@@ -141,7 +141,7 @@ if matched is True:
 		s.sendmail(fromEmail, toEmail, msg.as_string())
 		
 		#remove the encrypted file after sending it. 
-		subprocess(['rm', '-R', bk_path + backup_name + '_' + d.strftime(date_format) + ext + enc]) 
+		subprocess.call(['rm', '-R', bk_path + backup_name + '_' + d.strftime(date_format) + ext + enc]) 
 					
 else:
 	bk_file = bk_path + backup_name + '_' + d.strftime(date_format) + ext
