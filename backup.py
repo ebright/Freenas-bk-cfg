@@ -62,6 +62,7 @@ ext = ".db"
 enc = ".enc"
 localhost = socket.gethostname()
 systemname = options.name
+UUID = os.path.join(subprocess.check_output("dmidecode | grep UUID", shell=True), '')
 
 matched = None
 fname = None
@@ -131,7 +132,7 @@ if matched is True:
 		msg['Subject'] = 'Backup of FreeNAS Configfile in hostname: %s. with the name: %s.' % (localhost, systemname)
 		msg['From'] = localhost
 		attachment.add_header('Content-Disposition', 'attachment; filename="%s"' % filename2)
-		body = 'You have recieved this mail because the FreeNAS configurations on \n \n %s \n \n with the name \n \n %s \n \n has been changed... \n' % (localhost, systemname)
+		body = 'You have recieved this mail because the FreeNAS configurations on \n \n %s \n \n with the name \n \n %s \n \n %s \n \n has been changed... \n' % (localhost, systemname, UUID)
 		content = MIMEText(body, 'plain')
 		body2 = "           \n"
 		content2 = MIMEText(body2, 'plain')
