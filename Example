@@ -1,0 +1,3 @@
+/usr/local/sbin/backup.py -n '<Open ApS NaStar>' -m smtp.gmail.com:587 -u nastarsmtp@gmail.com -p nastarpassword -t nastar.report@gmail.com --ef nastarsmtp@gmail.com
+
+When using characters like >< in name, remember to put 'around' the name to be sure that it will not conflict with any other code characters.
