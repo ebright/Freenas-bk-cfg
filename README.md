@@ -9,7 +9,7 @@ This script will copy the FreeNAS configuration file (/data/freenas-v1.db) to th
 
 Arguments to the script has been made to make it flexible to which mail server should be used and also introduced a System name independent of hostname og the system in case you have multiple FreeNAS systems you need to have backups from.
 
-<code>Usage: BackupConf.py [options]</code>
+<code>Usage: backup.py [options]</code>
 
 <code>Options:</code>
 
@@ -38,7 +38,7 @@ Added default arguments inside script to hide cleartext smtp details in the cron
 
 <h2>Install Instructions</h2>
 
-Copy BackupConf.py to /usr/local/sbin/ by first mounting the system as writeable with mount -uw /
+Copy backup.py to /usr/local/sbin/ by first mounting the system as writeable with mount -uw /
 <br>Change permissions to add execute to backup.py (ex. chmod +x /tmp/backup.py)
 <br>Change the system back to read-only with mount -ur /
 
