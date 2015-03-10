@@ -40,8 +40,19 @@ parser.add_option('-p', '--passwd', help="Password for your mail account. Beawar
 parser.add_option('-t', '--emailto', help="Mail you want to send the file to", action="store")
 parser.add_option('-f', '--emailfrom', help="Naming of the email adress sent from. Mostly the same as your mailaccount", action="store")
 
+#Default arguments.
+#CHANGE THESE TO YOUR EMAILACCOUNT INFO
+#==========VERY IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!
+#==!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 parser.set_defaults(name='Default FreeNAS Name')
+parser.set_defaults(mailserver='smtp.gmail.com')
+parser.set_defaults(user='CHANGE-THIS@gmail.com')
+parser.set_defaults(passwd='PASSWORD-CHANGE-THIS')
+parser.set_defaults(emailto='CHANGE-THIS@gmail.com')
+parser.set_defaults(emailfrom='CHANGE-THIS@gmail.com')
 options, args = parser.parse_args()
+
+#==================================================================================
 
 name = systemname = options.name
 mailserver = systemname = options.mailserver
@@ -62,7 +73,7 @@ ext = ".db"
 enc = ".enc"
 localhost = socket.gethostname()
 systemname = options.name
-UUID = os.path.join(subprocess.check_output("dmidecode | grep UUID", shell=True), '')
+UUID = subprocess.check_output("dmidecode | grep UUID", shell=True)
 
 matched = None
 fname = None
@@ -78,10 +89,11 @@ logging.basicConfig(filename=log_file,
 logging.getLogger('').addHandler(console)
 
 if os.stat(log_file)[6]==0:
-	logging.debug('Version 1.0 build 16')
+	logging.debug('Version 2.0 - Encrypted email with default args')
 	logging.debug('Automatic Backup Script for FreeNAS Configuration File')
 	logging.debug('Original Script Created By: Eric Bright Copyright (C) 2013')
 	logging.debug('https://github.com/ebright/FreeNas_Config/')
+	logging.debug('Initial script made by Dennis Juhler Aagaard')
 	logging.debug('---------------------------')
 
 os.chdir(bk_path)
@@ -117,6 +129,9 @@ if matched is True:
 		import smtplib
 		from email.mime.multipart import MIMEMultipart
 		from email.mime.text import MIMEText
+		from email.header import Header
+		from email.utils import formataddr
+		
 		attachment = MIMEText(file(bk_path + backup_name + '_' + d.strftime(date_format) + ext + enc).read())
 		filename = file(backup_name + '_' + d.strftime(date_format) + ext)
 		date = d.strftime(date_format)
@@ -128,11 +143,11 @@ if matched is True:
 		password = '%s' % passwd
 		s.login(username,password)
 		toEmail = '%s' % emailto
-		fromEmail = '%s' % emailfrom
+		fromEmail = formataddr((str(Header(u'%s' % systemname , 'utf-8')), "%s" % emailfrom)) 
 		msg['Subject'] = 'Backup of FreeNAS Configfile in hostname: %s. with the name: %s.' % (localhost, systemname)
-		msg['From'] = localhost
+		msg['From'] = fromEmail
 		attachment.add_header('Content-Disposition', 'attachment; filename="%s"' % filename2)
-		body = 'You have recieved this mail because the FreeNAS configurations on \n \n %s \n \n with the name \n \n %s \n \n %s \n \n has been changed... \n' % (localhost, systemname, UUID)
+		body = 'You have recieved this mail because the FreeNAS configurations on \n \n %s \n \n with the name \n \n %s \n \n %s \n has been changed... \n' % (localhost, systemname, UUID)
 		content = MIMEText(body, 'plain')
 		body2 = "           \n"
 		content2 = MIMEText(body2, 'plain')
