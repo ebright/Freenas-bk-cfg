@@ -33,6 +33,8 @@ Arguments to the script has been made to make it flexible to which mail server s
                         Naming of the email adress sent from. Mostly the same
                         as your mailaccount</code>
 
+Added default arguments inside script to hide cleartext smtp details in the cronjob in the FreeNAS GUI. Remember to change the default args for your liking.
+
 
 <h2>Install Instructions</h2>
 
@@ -46,8 +48,11 @@ Log into the FreeNAS Web Interface
 
 User = root 
 
-Command = <code>BackupConf.py -n [name] -m [mailserver hostname] -u [mail account user] -p [password] -t [emailto] -f [emailfrom]</code>
+Command = <code>backup.py -n '[name]' -m [mailserver hostname] -u [mail account user] -p [password] -t [emailto] -f [emailfrom]</code>
 
+or if you have define default smtp arguments inside script
+
+Command = <code>backup.py -n '[name]'</code>
 
 Set it to run each hour to catch your FreeNAS changes. If there has not been any changes, nothing will happen.
 
