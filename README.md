@@ -1,7 +1,7 @@
 <h1>FreeNAS Backup conf</h1>
 
 Python script to backup FreeNAS configuration file Created by Eric Bright Copyright (C) 2013
-Expanded by adding mail, and the use of zpool location of the backup, by Dennis Juhler Aagaard (C) 2014
+Expanded by adding mail, and the use of zpool location of the backup, by Dennis Juhler Aagaard (C) 2015
 
 <b>Tested only on 9.2.1.7</b>
 
@@ -17,11 +17,6 @@ Arguments to the script has been made to make it flexible to which mail server s
 
 <code>-n NAME, --name=NAME    Name of the system</code>
 
-<code>-m MAILSERVER, --mailserver=MAILSERVER</code>
-                        <code>Hostname of mailserver with port; hostname.org:25</code>
-
-<code>-u USER, --user=USER    Username for the mail account</code>
-
 <code>-p PASSWD, --passwd=PASSWD</code>
                         <code>Password for your mail account. Beaware that this is
                         in cleartext. This password will also be used for encryption.</code>
@@ -33,7 +28,8 @@ Arguments to the script has been made to make it flexible to which mail server s
                         Naming of the email adress sent from. Mostly the same
                         as your mailaccount</code>
 
-Added default arguments inside script to hide cleartext smtp details in the cronjob in the FreeNAS GUI. Remember to change the default args for your liking.
+Added default arguments inside script. Remember to change the default args for your liking.
+Changed the script from using SMTPlib in Python to send the mail via sendmail. If you dont recieve any mail, check your spam folder. Particular gmail.com.
 
 
 <h2>Install Instructions</h2>
@@ -48,9 +44,9 @@ Log into the FreeNAS Web Interface
 
 User = root 
 
-Command = <code>backup.py -n '[name]' -m [mailserver hostname] -u [mail account user] -p [password] -t [emailto] -f [emailfrom]</code>
+Command = <code>backup.py -n '[name]' -p [password] -t [emailto] -f [emailfrom]</code>
 
-or if you have define default smtp arguments inside script
+or if you have define default arguments inside script
 
 Command = <code>backup.py -n '[name]'</code>
 
