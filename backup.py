@@ -125,8 +125,10 @@ for files in os.listdir("."):
                 logging.debug('Found file ' + bk_file)
                 break
 if matched is True:
-        read1 = file(db_file).read().split('\n')
-        read2 = file(bk_file).read().split('\n')
+        with open(db_file, "rb") as f:
+            read1 = f.read()
+        with open(bk_file, "rb") as f:
+            read2 = f.read()
         if read1 == read2:
                 logging.info('Configuration has not changed. Aborting backup')
                 sys.exit()
